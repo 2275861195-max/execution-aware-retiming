@@ -6,7 +6,6 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-12T20:21:36.751731</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -521,7 +520,7 @@ L 34.010818 125.816414
 L 35.086106 125.93949
 L 35.1 125.8416
 z
-" clip-path="url(#p8d5c264c27)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 464.76 125.8416
@@ -1015,7 +1014,7 @@ L 463.670818 125.816414
 L 464.746106 125.93949
 L 464.76 125.8416
 z
-" clip-path="url(#p8d5c264c27)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 247.14 253.3536
@@ -1509,7 +1508,7 @@ L 246.050818 253.328414
 L 247.126106 253.45149
 L 247.14 253.3536
 z
-" clip-path="url(#p8d5c264c27)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
     <!-- Separate compression from cadence / prefix effects -->
@@ -3123,7 +3122,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p8d5c264c27">
+  <clipPath id="pd9e70b7718">
    <rect x="7.2" y="7.2" width="669.6" height="304.92"/>
   </clipPath>
  </defs>

@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "figures"
 BLUE, RED, INK = "#256f85", "#b45b4c", "#24333e"
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 12,
+                     "svg.hashsalt": "execution-aware-retiming",
                      "axes.spines.top": False, "axes.spines.right": False,
                      "axes.labelcolor": INK, "text.color": INK})
 
@@ -20,7 +21,7 @@ plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 12,
 def save(fig, name):
     fig.savefig(OUT / f"{name}.png", dpi=180, bbox_inches="tight", facecolor="white")
     svg = StringIO()
-    fig.savefig(svg, format="svg", bbox_inches="tight", facecolor="white")
+    fig.savefig(svg, format="svg", bbox_inches="tight", facecolor="white", metadata={"Date": None})
     (OUT / f"{name}.svg").write_text("\n".join(line.rstrip() for line in svg.getvalue().splitlines()) + "\n")
     plt.close(fig)
 
@@ -75,6 +76,84 @@ def diagram(name, title, nodes, edges, note):
     save(fig, name)
 
 
+def overview(data, diagnostic):
+    fig = plt.figure(figsize=(16, 10))
+    grid = fig.add_gridspec(3, 2, height_ratios=[1.25, 1, 1], hspace=.58, wspace=.26)
+    ax = fig.add_subplot(grid[0, :])
+    ax.set(xlim=(0, 16), ylim=(0, 3.5))
+    ax.axis("off")
+    ax.set_title("A  Frozen policy → temporal accelerator → future stability layer", loc="left", weight="bold")
+    blocks = [(.1, 1.45, 2, 1, "Observation\n+ robot state", False),
+              (2.8, 1.45, 2, 1, "Frozen π0.5\n10-action chunk", False),
+              (5.5, 1.45, 2.3, 1, "Existing accelerator\nsource-time mapping", False),
+              (8.5, 1.1, 4, 1.7, "PROPOSED stability plug-in\nMonitor: mechanism-dependent signal\nCorrector: minimal intervention", True),
+              (13.2, 1.45, 2.6, 1, "Controller + robot\nphysical interaction", False)]
+    for x, y, w, h, label, future in blocks:
+        patch = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=.03", linewidth=1.7,
+                               edgecolor=INK, facecolor="#fff2d8" if future else "#e5f0f2",
+                               linestyle="--" if future else "-")
+        patch.set_sketch_params(1, 100, 2)
+        ax.add_patch(patch)
+        ax.text(x+w/2, y+h/2, label, ha="center", va="center", fontsize=11)
+    for a, b in zip(blocks, blocks[1:]):
+        ax.annotate("", xy=(b[0]-.07, 1.95), xytext=(a[0]+a[2]+.07, 1.95),
+                    arrowprops={"arrowstyle":"->", "color":INK, "lw":1.8})
+    ax.annotate("", xy=(10.5, 1.02), xytext=(14.5, 1.35),
+                arrowprops={"arrowstyle":"->", "color":INK, "connectionstyle":"angle,angleA=-90,angleB=0,rad=8"})
+    ax.text(12.7, .55, "Execution feedback\nDeployable signals not yet fixed", ha="center", fontsize=10)
+    for y, indices, label, color in [(0.77, range(10), "1×: unit source intervals", BLUE),
+                                      (.32, ["[0,3)", "[3,6)", "[6,9)"], "3×: compressed intervals", RED)]:
+        ax.text(.1, y, label, va="center", fontsize=10)
+        for i, index in enumerate(indices):
+            spacing = .3 if y > .5 else .9
+            width = spacing-.07
+            x = 2.85+i*spacing
+            ax.add_patch(FancyBboxPatch((x, y-.13), width, .26, boxstyle="round,pad=.01", facecolor=color, edgecolor="white"))
+            ax.text(x+width/2, y, str(index), ha="center", va="center", color="white", fontsize=8)
+    ax.text(6.2, .12, "Mapping illustration only—not a measured trajectory or full retimer specification", fontsize=9)
+    ax = fig.add_subplot(grid[1, 0])
+    speeds = [float(row["setting"].split("-")[1]) for row in data]
+    sr = [float(row["SR"]) for row in data]
+    ax.plot(speeds, sr, "o-", color=BLUE, lw=2)
+    for x, y in zip(speeds, sr):
+        ax.annotate(f"{y:.2f}%", (x, y), xytext=(0, 8), textcoords="offset points", ha="center", fontsize=10)
+    ax.set(title="B  Requested acceleration vs reliability", xlabel="Requested factor (×)", ylabel="Success (%)", ylim=(0, 112), xticks=speeds)
+    ax = fig.add_subplot(grid[1, 1])
+    actual = [float(row["paired_median_speedup"]) for row in data]
+    ax.plot(actual, sr, "o-", color=RED, lw=2)
+    for x, y, speed in zip(actual, sr, speeds):
+        ax.annotate(f"{speed:g}×", (x, y), xytext=(-25, 8), textcoords="offset points", fontsize=10)
+    ax.set(title="C  Realized speed gain saturates", xlabel="Paired median speedup (×)", ylabel="Success (%)", ylim=(0, 112), xlim=(.93, 1.63))
+    ax = fig.add_subplot(grid[2, 0])
+    metrics = list(diagnostic.values())
+    names = ["Direction\nchange", "Requested\nbound excess", "EEF path\nefficiency"]
+    for offset, column, label, color in [(-.18, "failure_median", "Failure (N=31)", RED), (.18, "success_median", "Success (N=19)", BLUE)]:
+        values = [float(row[column]) for row in metrics]
+        positions = [i+offset for i in range(3)]
+        ax.bar(positions, values, width=.34, color=color, label=label)
+        for x, y in zip(positions, values):
+            ax.text(x, y+.02, f"{y:g}", ha="center", fontsize=9)
+    ax.set(title="D  Exploratory RT3 proxies—not causes", ylabel="Median", ylim=(0, 1.13), xticks=range(3), xticklabels=names)
+    ax.legend(frameon=False, fontsize=9, loc="upper left")
+    ax.text(.5, -.33, "First 100 steps / 5 s; task-level counterexamples exist\nCompare outcomes within each metric only", transform=ax.transAxes, ha="center", fontsize=9)
+    ax = fig.add_subplot(grid[2, 1])
+    ax.set(xlim=(0, 10), ylim=(0, 5))
+    ax.axis("off")
+    ax.set_title("E  Proposed control—not a completed experiment", loc="left")
+    for x, y, label in [(1.6, 4.05, "S1-Q10\nRaw ten-step prefix"), (8.2, 4.05, "S1-Q3\nRaw a0–a2; re-query"), (5, 1.1, "S3-Q3\nCompressed execution")]:
+        ax.text(x, y, label, ha="center", va="center", fontsize=11,
+                bbox={"boxstyle":"round,pad=.45", "fc":"#e5f0f2", "ec":INK})
+    for start, end in [((3, 4.05), (6.65, 4.05)), ((7.6, 3.3), (5.8, 1.95)), ((2.2, 3.3), (4.2, 1.95))]:
+        ax.annotate("", xy=end, xytext=start, arrowprops={"arrowstyle":"->", "color":INK})
+    ax.text(4.9, 4.75, "Cadence / prefix effects", ha="center", fontsize=9)
+    ax.text(8, 2.3, "Compression at\nmatched cadence", ha="center", fontsize=9)
+    ax.text(1.6, 2.3, "Both change", ha="center", fontsize=9)
+    ax.text(5, -.25, "Task4 counterexample • 20 outcome-independent init × 3 conditions", ha="center", fontsize=9)
+    fig.suptitle("Towards stable temporal acceleration: evidence → diagnosis → intervention", fontsize=20, weight="bold", y=.99)
+    fig.text(.06, .005, "Aggregate observations supplied by authors; no uncertainty estimates. Proposed plug-in is not implemented or validated.", fontsize=10)
+    save(fig, "research_overview")
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     with (ROOT / "data/aggregated/overall_tradeoff.csv").open() as file:
@@ -118,6 +197,7 @@ def main():
     fig.text(.5, .01, "N=31 failures / 19 successes • association only • task-level counterexamples exist", ha="center", fontsize=11)
     fig.tight_layout(rect=(0, .06, 1, .92))
     save(fig, "diagnostic_proxy_summary")
+    overview(data, diagnostic)
     diagram("hypothesis_space", "Four competing mechanisms — no winner selected", [
         (.5, 3, 4.8, 1.2, "H1  Motion realization distortion\nCommands ≠ physical motion", False),
         (6.5, 3, 4.8, 1.2, "H2  Cross-query commitment\nIntent changes across queries", False),

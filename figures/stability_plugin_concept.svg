@@ -6,7 +6,6 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-12T20:21:36.800414</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -399,7 +398,7 @@ L 17.135748 142.584361
 L 18.30526 142.859271
 L 18.36 142.4736
 z
-" clip-path="url(#p8ce4829bb7)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 169.02 142.4736
@@ -771,7 +770,7 @@ L 167.795748 142.584361
 L 168.96526 142.859271
 L 169.02 142.4736
 z
-" clip-path="url(#p8ce4829bb7)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 325.26 153.5616
@@ -1321,7 +1320,7 @@ L 323.977433 153.731054
 L 325.186555 154.07905
 L 325.26 153.5616
 z
-" clip-path="url(#p8ce4829bb7)" style="fill: #fff5e4; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #fff5e4; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 542.88 142.4736
@@ -1693,7 +1692,7 @@ L 541.655748 142.584361
 L 542.82526 142.859271
 L 542.88 142.4736
 z
-" clip-path="url(#p8ce4829bb7)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #f0f5f5; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 325.26 258.8976
@@ -2155,7 +2154,7 @@ L 323.900918 259.144066
 L 325.179408 259.465409
 L 325.26 258.8976
 z
-" clip-path="url(#p8ce4829bb7)" style="fill: #fff5e4; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#pd9e70b7718)" style="fill: #fff5e4; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #24333e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
     <!-- Existing accelerator + proposed stability plug-in -->
@@ -3760,7 +3759,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p8ce4829bb7">
+  <clipPath id="pd9e70b7718">
    <rect x="7.2" y="7.2" width="669.6" height="304.92"/>
   </clipPath>
  </defs>

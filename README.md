@@ -6,7 +6,7 @@ We study post-hoc temporal acceleration and the execution failures that accompan
 
 > **Current stage: mechanism identification.** The stability plug-in is a research target, not yet an implemented or validated method. This is an ongoing independent research project, and we welcome collaborators.
 
-![Proposed execution architecture](figures/stability_plugin_concept.png)
+![Research overview: evidence, diagnostics and proposed execution architecture](figures/research_overview.png)
 
 Solid blocks describe the execution pipeline; the dashed plug-in is proposed. Its monitor, corrector and deployment signals remain under investigation. The existing accelerator is not necessarily our contribution.
 
