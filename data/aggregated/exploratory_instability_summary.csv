@@ -1,0 +1,6 @@
+scope,setting,window_control_steps,window_seconds,metric,failure_N,success_N,failure_median,success_median
+selected_tasks,RT-3.0,100,5,query_boundary_translation_direction_change_proxy,31,19,0.1793,0.1061
+selected_tasks,RT-3.0,100,5,requested_translation_bound_excess_fraction,31,19,0.64,0.63
+selected_tasks,RT-3.0,100,5,eef_path_efficiency,31,19,0.7469,0.8368
+task4,RT-3.0,100,5,query_boundary_translation_direction_change_proxy,,,0.1793,0.2386
+task8,RT-3.0,100,5,eef_path_efficiency,,,0.8551,0.8329

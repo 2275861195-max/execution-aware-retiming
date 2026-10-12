@@ -1,0 +1,4 @@
+.build/
+.chart-data-*/
+node_modules
+output/

@@ -2,6 +2,8 @@
 
 Status: planned diagnostic protocol under active validation. This document defines what should be measured, not a completed experiment report.
 
+The current amendment is the [three-condition control plan](next_experiments.md). RT1/RT3 also change query cadence; a two-condition comparison cannot attribute outcomes to compression alone. The [current evidence summary](current_evidence.md) distinguishes released aggregate observations from planned tests.
+
 ## Frozen-policy principle
 
 Keep policy parameters, checkpoint, observation processing, action normalization, controller implementation, control frequency, simulator time step, and success predicate fixed. The diagnostic treatment is the retiming rule. Do not retrain the policy or modify controller bounds during mechanism diagnosis. Read-only instrumentation must not silently alter execution.

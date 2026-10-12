@@ -1,0 +1,6 @@
+setting,SR,success_mean_time_s,paired_median_speedup,success_policy_calls
+RT-1.0,97.90,7.43,1.00,15.29
+RT-1.5,95.45,5.76,1.33,19.61
+RT-2.0,80.50,5.57,1.47,22.71
+RT-2.5,60.70,5.73,1.54,29.04
+RT-3.0,48.85,5.55,1.53,37.34
