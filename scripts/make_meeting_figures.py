@@ -135,7 +135,7 @@ def overview(data, diagnostic):
             ax.text(x, y+.02, f"{y:g}", ha="center", fontsize=9)
     ax.set(title="D  Exploratory RT3 proxies—not causes", ylabel="Median", ylim=(0, 1.13), xticks=range(3), xticklabels=names)
     ax.legend(frameon=False, fontsize=9, loc="upper left")
-    ax.text(.5, -.33, "First 100 steps / 5 s; task-level counterexamples exist\nCompare outcomes within each metric only", transform=ax.transAxes, ha="center", fontsize=9)
+    ax.text(.5, -.46, "First 100 steps / 5 s; task-level counterexamples exist\nCompare outcomes within each metric only", transform=ax.transAxes, ha="center", fontsize=9)
     ax = fig.add_subplot(grid[2, 1])
     ax.set(xlim=(0, 10), ylim=(0, 5))
     ax.axis("off")
@@ -150,6 +150,7 @@ def overview(data, diagnostic):
     ax.text(1.6, 2.3, "Both change", ha="center", fontsize=9)
     ax.text(5, -.25, "Task4 counterexample • 20 outcome-independent init × 3 conditions", ha="center", fontsize=9)
     fig.suptitle("Towards stable temporal acceleration: evidence → diagnosis → intervention", fontsize=20, weight="bold", y=.99)
+    fig.subplots_adjust(bottom=.16)
     fig.text(.06, .005, "Aggregate observations supplied by authors; no uncertainty estimates. Proposed plug-in is not implemented or validated.", fontsize=10)
     save(fig, "research_overview")
 
